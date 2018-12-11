@@ -5,6 +5,9 @@
 #define INIT_SIZE 10
 #define BUF_SIZE 256
 
+char **arr1 = NULL;
+char **arr2 = NULL;
+
 int arr_len(char **arr);
 void delete(char **arr);
 void do_intersection(char **arr1, char **arr2);
@@ -128,7 +131,7 @@ char **readfile(const char *filename)
 
 		/* we want arr to be the exact size, as to not disturb our sort
 		   algortihm or fill up our results with NULLs */
-		ret = realloc(ret, count * sizeof *ret);
+		ret = realloc(ret, (count + 1) * sizeof *ret);
 
 		/* always make array NULL-terminated */
 		ret[count] = NULL;
@@ -172,8 +175,6 @@ int main(int argc, char *argv[])
 {
 		/*char *arr1[] = {"Calvo2018", "Baumann2018", NULL};
 		  char *arr2[] = {"Top2019", "Top2020", "Calvo2018", NULL};*/
-		static char **arr1 = NULL;
-		static char **arr2 = NULL;
 
 		if(argc < 3)
 				return 0;
@@ -186,15 +187,15 @@ int main(int argc, char *argv[])
 		strip_newlines(arr1);
 		strip_newlines(arr2);
 
-		dump_array(arr1);
-		dump_array(arr2);
+		/*dump_array(arr1);
+		dump_array(arr2);*/
 
 		/* -2 to accomodate for the NULL and because C counts from 0 */
-		/*sort(arr1, 0, arr_len(arr1) - 2);
-		sort(arr2, 0, arr_len(arr2) - 2);*/
+		sort(arr1, 0, arr_len(arr1) - 2);
+		sort(arr2, 0, arr_len(arr2) - 2);
 
-		dump_array(arr1);
-		dump_array(arr2);
+		/*dump_array(arr1);
+		  dump_array(arr2);*/
 		
 		printf("Union: ");
 		do_union(arr1, arr2);
